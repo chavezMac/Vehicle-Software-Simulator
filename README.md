@@ -1,6 +1,6 @@
 # Vehicle Software Integration Simulator
 
-**Raspberry Pi-based simulator of vehicle ECUs, CAN bus, and gateway services for automotive software prototyping.**
+**A Vehicle Software Integration Simulator built on Raspberry Pi, used to simulate distributed automotive systems. This project includes ECU simulators, a CAN bus network, a gateway service, and a REST API to expose vehicle state. Designed to mimic real-world vehicle software architecture for edutcational, testing, and prototyping purposes.**
 
 ---
 
