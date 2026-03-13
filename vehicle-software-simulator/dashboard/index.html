@@ -51,6 +51,11 @@
     <div id="media" class="value">--</div>
 </div>
 
+<div class="card">
+    <h2>Temperature</h2>
+    <div id="temperature" class="value">--</div>
+</div>
+
 <p id="ws_status" style="margin-top: 20px; font-size: 14px; opacity: 0.8;">Connecting…</p>
 
 <script>
@@ -66,6 +71,7 @@
         document.getElementById("vehicle_speed").innerText = (data.vehicle_speed != null ? data.vehicle_speed : "--") + " km/h";
         document.getElementById("door").innerText = data.door_open != null ? (data.door_open ? "OPEN" : "CLOSED") : "--";
         document.getElementById("media").innerText = data.media_state != null ? data.media_state : "--";
+        document.getElementById("temperature").innerText = (data.temperature != null ? data.temperature : "--") + " c";
     }
 
     function setStatus(text, ok) {

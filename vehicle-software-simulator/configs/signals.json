@@ -1,5 +1,10 @@
 {
     "signals": {
+        "256": {
+            "name": "temperature",
+            "byte": 0,
+            "type": "int"
+        },
         "304": {
             "name": "vehicle_speed",
             "byte": 0,

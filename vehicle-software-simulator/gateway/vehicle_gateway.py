@@ -6,6 +6,8 @@ from ws_server import start_ws_server
 
 CORS(app)
 
+
+# "Car Backend"
 def start_gateway():
     listener_thread = threading.Thread(target=start_can_listener)
     listener_thread.daemon = True

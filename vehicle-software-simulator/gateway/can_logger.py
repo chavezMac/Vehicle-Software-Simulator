@@ -15,7 +15,7 @@ _JSONL_PATH = os.path.join(_LOGS_DIR, "vehicle_can.jsonl")
 _asc_file = None
 _jsonl_file = None
 
-
+# Ensure logs/ directory is created automatically if missing. and opened in append mode.
 def _ensure_logs_open():
     """Create logs directory and open log files on first use."""
     global _asc_file, _jsonl_file
@@ -25,7 +25,7 @@ def _ensure_logs_open():
     _asc_file = open(_ASC_PATH, "a", encoding="utf-8")
     _jsonl_file = open(_JSONL_PATH, "a", encoding="utf-8")
 
-
+#
 def _timestamp(msg):
     """Epoch seconds; use message timestamp if set and valid, else current time."""
     t = getattr(msg, "timestamp", None)
@@ -83,7 +83,8 @@ def log_frame(msg):
             "data_bytes": data_bytes,
         }
         _jsonl_file.write(json.dumps(record) + "\n")
+        
         _jsonl_file.flush()
     except Exception:
-        # Do not let logger crash the CAN listener
+        # Do not let logger crash the CAN listener. Exception handling to prevent the gateway from crashing.
         pass
