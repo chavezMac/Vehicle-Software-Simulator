@@ -1,0 +1,4 @@
+python-can
+Flask
+flask-cors
+websockets

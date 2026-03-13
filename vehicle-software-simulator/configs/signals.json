@@ -1,0 +1,24 @@
+{
+    "signals": {
+        "304": {
+            "name": "vehicle_speed",
+            "byte": 0,
+            "type": "int"
+        },
+        "512": {
+            "name": "door_open",
+            "byte": 0,
+            "type": "bool"
+        },
+        "768": {
+            "name": "media_state",
+            "byte": 0,
+            "type": "enum",
+            "values": {
+                "0": "STOPPED",
+                "1": "PLAYING",
+                "2": "PAUSED"
+            }
+        }
+    }
+}

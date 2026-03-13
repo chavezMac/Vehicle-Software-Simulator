@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Simulator Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #111;
+            color: #fff;
+            text-align: center;
+        }
+
+        .card {
+            display: inline-block;
+            background: #222;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 10px;
+            width: 200px;
+        }
+
+        h1 {
+            margin-top: 40px;
+        }
+
+        .value {
+            font-size: 40px;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1>Vehicle Software Simulator</h1>
+
+<div class="card">
+    <h2>Speed</h2>
+    <div id="vehicle_speed" class="value">--</div>
+</div>
+
+<div class="card">
+    <h2>Driver Door</h2>
+    <div id="door" class="value">--</div>
+</div>
+
+<div class="card">
+    <h2>Media</h2>
+    <div id="media" class="value">--</div>
+</div>
+
+<p id="ws_status" style="margin-top: 20px; font-size: 14px; opacity: 0.8;">Connecting…</p>
+
+<script>
+(function () {
+    const gatewayHost = location.hostname;
+    const wsUrl = "ws://" + gatewayHost + ":5001";
+    const statusEl = document.getElementById("ws_status");
+    let ws = null;
+    let reconnectDelay = 1000;
+    let reconnectTimer = null;
+
+    function updateUI(data) {
+        document.getElementById("vehicle_speed").innerText = (data.vehicle_speed != null ? data.vehicle_speed : "--") + " km/h";
+        document.getElementById("door").innerText = data.door_open != null ? (data.door_open ? "OPEN" : "CLOSED") : "--";
+        document.getElementById("media").innerText = data.media_state != null ? data.media_state : "--";
+    }
+
+    function setStatus(text, ok) {
+        statusEl.textContent = text;
+        statusEl.style.color = ok ? "#4ade80" : "#f87171";
+    }
+
+    function connect() {
+        if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+        ws = new WebSocket(wsUrl);
+        ws.onopen = function () {
+            reconnectDelay = 1000;
+            setStatus("Live", true);
+        };
+        ws.onmessage = function (ev) {
+            try {
+                const data = JSON.parse(ev.data);
+                updateUI(data);
+            } catch (e) {}
+        };
+        ws.onclose = function () {
+            setStatus("Disconnected.  reconnecting…", false);
+            ws = null;
+            reconnectTimer = setTimeout(function () {
+                connect();
+                reconnectDelay = Math.min(reconnectDelay * 1.5, 10000);
+            }, reconnectDelay);
+        };
+        ws.onerror = function () {
+            ws.close();
+        };
+    }
+
+    connect();
+})();
+</script>
+
+</body>
+</html>

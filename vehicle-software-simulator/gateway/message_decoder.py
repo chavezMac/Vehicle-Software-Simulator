@@ -1,10 +1,15 @@
 from vehicle_state import vehicle_state
+from signal_database import SignalDatabase
+
+signal_db = SignalDatabase("../configs/signals.json")
 
 def decode_message(msg):
+    signal_name, signal_value = signal_db.decode(msg)
 
-    if msg.arbitration_id == 0x130:
-        vehicle_state.speed = msg.data[0]
-    elif msg.arbitration_id == 0x200:
-        vehicle_state.door_open = bool(msg.data[0])
-    elif msg.arbitration_id == 0x300:
-        vehicle_state.temperature = msg.data[0]
+    if signal_name:
+        setattr(vehicle_state, signal_name.lower(), signal_value)
+        try:
+            from ws_server import request_broadcast
+            request_broadcast()
+        except Exception:
+            pass
