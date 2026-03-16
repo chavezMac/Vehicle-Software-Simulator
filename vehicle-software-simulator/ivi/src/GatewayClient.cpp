@@ -9,9 +9,10 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <QIODevice>
+#include <QCoreApplication>
 
 GatewayClient::GatewayClient(VehicleStateModel *stateModel, QObject *parent)
-    : QObject(parent), m_socket(new QWebSocket), m_stateModel(stateModel), m_reconnectDealyMs(1000){}
+    : QObject(parent), m_socket(new QWebSocket), m_stateModel(stateModel), m_reconnectDelayMs(1000){}
 
 void GatewayClient::connectToGateway(const QUrl &url) {
     m_url = url;

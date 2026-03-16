@@ -20,19 +20,19 @@ QString VehicleStateModel::mediaState() const {
     return m_mediaState;
 }
 
-VehicleStateModel::updateFromJson(const QJsonObject &obj) {
+void VehicleStateModel::updateFromJson(const QJsonObject &obj) {
     //                                  neccessary check, not guaranteed that the json obj is actually a numeric value
     if (obj.contains("vehicle_speed") && obj["vehicle_speed"].isDouble()) { 
         double newSpeed = obj["vehicle_speed"].toDouble();
         if(!qFuzzyCompare(m_vehicleSpeed,newSpeed)) {
             m_vehicleSpeed = newSpeed;
-            emit vehicleSpeedChange();
+            emit vehicleSpeedChanged();
         }
     }
 
     if (obj.contains("door_open") && obj["door_open"].isBool()) {
         bool newDoorStatus = obj["door_open"].toBool();
-        if(!qFuzzyCompare(m_doorOpen, newDoorStatus)) {
+        if(m_doorOpen != newDoorStatus) {
             m_doorOpen = newDoorStatus;
             emit doorOpenChanged();
         }
@@ -48,7 +48,7 @@ VehicleStateModel::updateFromJson(const QJsonObject &obj) {
 
     if(obj.contains("media_state") && obj["media_state"].isString()) {
         QString newMedia = obj["media_state"].toString();
-        if(!qFuzzyCompare(m_mediaState, newMedia)) {
+        if( QString::compare(m_mediaState, newMedia, Qt::CaseInsensitive)) {
             m_mediaState = newMedia;
             emit mediaStateChanged();
         }
