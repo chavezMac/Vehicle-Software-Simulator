@@ -2,4 +2,4 @@
     <qresource prefix="/qml">
         <file>MainView.qml</file>
     </qresource>
-<RCC>
+</RCC>

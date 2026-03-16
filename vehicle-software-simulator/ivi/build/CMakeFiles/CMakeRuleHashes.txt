@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+ea9bbb47d646bc4dda875e9aafb5c707 CMakeFiles/ivi_dashboard_autogen
+3cb98f95bdbb0af053163316425b3bf7 ivi_dashboard_autogen/CCBC4FUR7J/qrc_qml.cpp
+36dc2e635b03a956f69e1f24495ae57c ivi_dashboard_autogen/timestamp
