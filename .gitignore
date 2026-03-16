@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local env files
+.env
+.env.*
+
+# Virtual environments
+.venv/
+venv/
+vehicle-software-simulator/.venv/
+vehicle-software-simulator/venv/
+
+# Runtime logs and generated outputs
+logs/
+*.log
+vehicle-software-simulator/logs/
+
+# Build outputs
+build/
+vehicle-software-simulator/ivi/build/
